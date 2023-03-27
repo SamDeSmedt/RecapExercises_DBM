@@ -1,0 +1,30 @@
+Normalizatin exercises
+
+UNF: The database table as it is visualized
+DB(staffNo, dentistName, patientNo, patientName, appointment [date, time], surgeryNo)
+
+1NF:
+- No repeating groups
+- All key attributes are present
+- Primary key is defined
+
+A dentist can only have a appointment on a specific day on a specified time once -> therefor valid PK
+
+DB(*staffNo*, dentistName, patientNo, patientName, *appointmentDate*, *appointmentTime*, surgeryNo)
+
+2NF:
+- No partial dependencies
+
+Dentist(*staffNo*, dentistName)
+DB(*staffNo*, patientNo, patientName, *appointmentDate*, *appointmentTime*, surgeryNo)
+
+3NF:
+- non-PK has is dependend on an other non-PK
+
+Dentist(*staffNo*, dentistName)
+Patient(*patientNo*, patientName)
+DB(*staffNo*, patientNo, *appointmentDate*, *appointmentTime*, surgeryNo)
+
+BCNF:
+- each attribute should be a candidate key
+=3NF
