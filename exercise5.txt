@@ -1,0 +1,24 @@
+Commands to create database and insert database data
+$sudo mariadb
+$create database vacation
+$grant all on vacation.* to sam@localhost
+$mysql vacation < vacation.sql 
+
+queries:
+select guestname, guestaddress from guest order by guestname asc;
+select * from room where (type="double" or type="family") and price < 40.00 order by price asc;
+select * from booking where dateto is NULL;
+select avg(price) from room;
+select sum(price) from room where type="double";
+select count(distinct(guestno)) from booking where (datefrom <= 2022-08-01 and dateto >= 2022-08-01) or (datefrom >= 2022-08-01 and datefrom <= 2022-08-31);
+select price, type from room join hotel on room.hotelno=hotel.hotelno where hotelname= "The Tower
+Hotel";
+select * from booking join hotel on booking.hotelno=hotel.hotelno join guest on booking.guestno=guest.guestno where hotelname="The Tower Hotel" and date(now()) between datefrom and dateto;
+select * from booking join guest on booking.guestno=guest.guestno join hotel on hotel.hotelno=booking.hotelno where hotelname="The Tower Hotel" and date(now()) between datefrom and dateto;
+select * from hotel join booking on hotel.hotelno=booking.hotelno join guest on guest.guestno=booking.guestno join room on booking.roomno=room.roomno and room.hotelno=hotel.hotelno where hotelname="The Tower Hotel" and date(now()) between datefrom and dateto;
+select sum(price) from room join hotel on hotel.hotelno=room.hotelno  where  roomno not in(select room.roomno from hotel join booking on hotel.hotelno = booking.hotelno join guest on guest.guestno=booking.guestno join room on room.roomno =booking.roomno and room.hotelno = booking.hotelno where DATE(NOW()) between datefrom  and dateto and hotelname = "The Tower Hotel") and hotelname = "The Tower Hotel";
+select hotelname, count(*) from hotel join room on hotel.hotelno=room.hotelno where city="London"
+group by hotelname;
+select * from (select hotelname,type,count(type) from hotel join room on hotel.hotelno=room.hotelno join booking on booking.roomno=room.roomno and hotel.hotelno=booking.hotelno where hotel.city ="London" group by hotelname, type order by count(type) desc) as sel1 group by sel1.hotelname;
+update room set price=price*1.05;
+
