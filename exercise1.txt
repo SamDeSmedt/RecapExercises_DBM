@@ -1,1 +1,25 @@
-Commands:
+Question
+Answer
+
+Create a new folder exercises in your home directory
+$mkdir exercise
+
+Initialize a git repository in this folder
+$git init
+
+Make sure your repository is available on GitHub
+go to github > create new directory > copy the ssh link or follow the instructions
+$git remote add origin git@github.com:SamDeSmedt/RecapExercises_DBM.git
+
+Change the original branch name
+$git branch -M main
+
+Create the file with the commands
+$nano exercise1.txt
+
+Add the file for tracking and commit to the main branch
+$git add exercise1.txt
+$git commit -m 'Creation of file and commit to main branch' exercise1.txt
+
+Push the file to the repository
+$git push -u origin main
