@@ -1,0 +1,119 @@
+UNF: The data table as it is shown
+1NF:
+- No repeating groups
+- All key attributes are present
+- Primary key(s) are defined
+
+2NF: No partial dependencies
+3NF: Non-PK depends on other non-PK
+BCNF: part of PK should no depend on a non-PK value
+
+Exercise 1:
+Table is not in 1NF because there are repeating groups
+
+UNF:
+DB(branchNo, branchAddress, [telNos])
+
+1NF:
+DB(branchNo, branchAddress, *telNos*)
+
+2NF = 1NF
+
+3NF:
+
+branch(*branchNo*, branchAddress)
+telephone(branchNo, *telNos*)
+
+Exercise 2:
+
+UNF:
+DB(petID, petName, petType, petAge, Owner, [visitDate, Procedure])
+
+1NF:
+DB(*petID*, petName, petType, petAge, Owner, *visitDate*, *procedureId*, Procedure)
+
+2NF:
+pet(*petID*, petName, petType, petAge, Owner)
+procedure(*procedureId*, Procedure)
+appointment(*petID*, *visitDate*, *procedureId*)
+
+3NF = 2NF
+
+Exercise 3:
+UNF:
+DB(Company, Symbol, HQ, Date, CP)
+
+1NF:
+DB(Company, *Symbol*, HQ, *Date*, CP)
+
+2NF:
+Stock(*Symbol*, Company, HQ)
+Price(*Symbol*, *Date*, CP)
+
+3NF:
+Stock(*Symbol*, Company)
+Location(*Company*, HQ)
+Price(*Symbol*, *Date*, CP)
+
+Exercise 4:
+UNF:
+DB(StudNo, StudName, [Major, Advisor, [CourseNo, Ctitle, InstrucName, InstrucLocn, Grade]])
+
+1NF:
+DB(*StudNo*, StudName, *Major*, Advisor, *CourseNo*, Ctitle, InstrucName, InstrucLocn, Grade)
+
+2NF:
+DB(*StudNo*, *Major*, *CourseNo*, Grade)
+Advisor(*studentNo*, *Major*, Advisor)
+Student(*StudNo*, StudName)
+Course(*CourseNo*, Ctitle, InstrucName, InstrucLocn)
+
+3NF:
+DB(*StudNo*, *Major*, *CourseNo*, Grade)
+Advisor(*studentNo*, *Major*, Advisor)
+Student(*StudNo*, StudName)
+Course(*CourseNo*, Ctitle, InstrucName)
+Instructor(*InstrucName*, InstrucLocn)
+
+BCNF:
+Grade(*StudNo*, *Major*, *CourseNo*, Grade)
+Advisor(*studentNo*, Major, *Advisor*)
+Advisor_Major(*Advisor*, Major)
+Student(*StudNo*, StudName)
+Course(*CourseNo*, Ctitle, InstrucName)
+Instructor(*InstrucName*, InstrucLocn)
+
+Exercise 6:
+?NF:
+Video(*title*, director, serial)
+Costumer(name, addr, *memberno*)
+Hire(memberno, *serial*, *date*)
+
+There are no partial dependencies: 2NF
+
+3NF:
+Video(*title*, serial)
+Serial_director(*serial*, director)
+Costumer(name, addr, *memberno*)
+Hire(memberno, *serial*, *date*)
+
+BCNF = 3NF
+
+Exercise 7:
+
+UNF:
+DB(name, addr, [beersliked, manf], favbeer)
+
+1NF:
+DB(*name*, addr, *beerliked*, manf, favbeer)
+
+2NF:
+drinker(*name*, addr, favbeer)
+beer(*beerliked*, manf)
+Name_beer(*name*, *beerliked*)
+
+3NF = 2NF  
+
+BCNF = 3NF
+
+
