@@ -1,0 +1,25 @@
+Commands to create dbs
+
+sudo mariadb
+create database college;
+grant all college.* to sam@localhost
+
+Commands for exercises
+
+select concat(stdFirstName, " ", stdLastName) as stdName, stdCity, stdGPA from student where stdGPA >= 3.7;
+select concat(FacFirstName, " ", FacLastName) as FacName, FacHireDate from faculty where year(FacHireDate) between 1999 and 2000;
+select OfferNo, CourseNo, FacSSN from offering where (OffTerm="FALL" and OffYear=2005) or (Offterm="WINTER" and OffYear=2006);
+select OfferNo, course.CourseNo, OffDays, OffTime from offering join course on offering.CourseNo=course.CourseNo where (crsDesc like "%database%" or crsDesc like "%programming%") and OffTerm="spring" and OffYear=2006;
+select OfferNo, CourseNo, concat(FacFirstName, " ", FacLastName) as FacName from faculty join offering on faculty.FacSSN = offering.FacSSN where OffYear = 2005 and OffTerm="FALL" and FacRank = "ASST" and CourseNo like "IS%";
+select stdMajor, avg(stdGPA) from student group by stdMajor;
+select OffYear, count(OfferNo) as offerings, count(distinct(CourseNo)) as courses from offering group by OffYear;
+select stdMajor, avg(stdGPA) as avgGPA from student where stdClass = "JR" or stdClass = "SR" group by stdMajor having avgGPA > 3.1;
+select stdMajor, stdClass, min(stdGPA), max(stdGPA) from student group by stdMajor, stdClass;
+select crsDesc, count(course.CourseNo) from offering join course on offering.CourseNo = course.CourseNo where course.CourseNo like "IS%" group by crsDesc;
+select stdGPA, concat(stdFirstName, " ", stdLastName) as stdName, stdCity, stdState from student where stdClass  = "JR" order by stdGPA asc;
+MariaDB [college]> select distinct(FacCity), FacState from faculty;
+select concat(stdFirstName, " ", stdLastName) as stdName, OfferNo, EnrGrade from enrollment join student on enrollment.stdSSN=student.stdSSN where EnrGrade >= 3.5;
+select distinct(stdFirstName), stdLastName from enrollment join student on enrollment.stdSSN=student.stdSSN where EnrGrade >= 3.5;
+select concat(stdFirstName, " ", stdLastName) as stdName, offering.OfferNo , offering.CourseNo , OffDays , OffLocation , OffTime, faculty.FacFirstName , faculty.FacLastName from student join enrollment on student.stdSSN =enrollment.StdSSN join offering on enrollment.OfferNo = offering.OfferNo join faculty on offering.FacSSN = faculty.FacSSN where OffTerm="SPRING" and OffYear=2006 and stdFirstName = "Bob" and stdLastName = "Norbert";
+
+
