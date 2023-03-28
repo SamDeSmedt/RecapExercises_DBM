@@ -1,0 +1,15 @@
+Commands to import restaurants.json
+mongoimport -d test restaurant.json
+
+Commands to perform the exercises
+db.restaurants.find({},{restaurant_id:1, name:1, borough:1, cuisine:1, _id:0})
+db.restaurants.find({borough:"Bronx"}).skip(5).limit(5)
+db.restaurants.find({"grades.score":{$gt:90}})
+db.restaurants.find({cuisine:{$ne:"American"}, "grades.score":{$gt:70}, "address.coord.0":{$lt:-65.754168}})
+db.restaurants.find({cuisine:{$in:["American","Chinese"]}, borough:"Bronx"})
+db.restaurants.find({borough:{$nin:["Staten Island","Queens","Bronx","Brooklyn"]}},{restaurant_id:1, name:1, borough:1, cuisine:1, _id:0})
+db.restaurants.find({"grades.score":{$lt:10}},{restaurant_id:1, name:1, borough:1, cuisine:1, _id:0})
+db.restaurants.find({grades:{$elemMatch:{grade:"A", score:11, date:ISODate("2014-08-11T00:00:00Z")}}},{restaurant_id:1, name:1, grades:1, _id:0})
+db.restaurants.find().sort({cuisine:1, borough:-1})
+db.restaurants.find({"address.street":{$exists:false}})
+
